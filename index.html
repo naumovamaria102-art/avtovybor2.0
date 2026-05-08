@@ -156,6 +156,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .carousel-dots{display:flex;justify-content:center;gap:6px;margin-top:14px}
 .carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:background .2s,transform .2s}
 .carousel-dot.active{background:var(--g);transform:scale(1.3)}
+.carousel-slide{cursor:pointer}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;border:none;border-radius:50%;background:rgba(255,255,255,0.08);color:var(--w);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.carousel-arrow:hover{background:rgba(255,255,255,0.16)}
+.carousel-arrow.prev{left:-20px}
+.carousel-arrow.next{right:-20px}
+.carousel-hint{margin-top:14px;text-align:center;font-size:0.74rem;color:rgba(255,255,255,0.65)}
+.tool-text--collapsible{position:relative;background:var(--d3);border:1px solid var(--border);border-radius:24px;padding:22px;transition:background .2s;overflow:hidden}
+.tool-text-preview{display:flex;flex-direction:column;gap:14px;font-size:0.85rem;color:var(--muted);line-height:1.7}
+.tool-text-open{align-self:flex-start;padding:10px 16px;border:none;border-radius:999px;background:var(--g);color:#0b1510;font-weight:700;cursor:pointer;transition:background .2s}
+.tool-text-open:hover{background:#31d05c}
+.tool-text-full{max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .4s ease,padding .4s ease}
+.tool-text--collapsible.active .tool-text-full{max-height:900px;opacity:1;padding-top:18px}
+.tool-text--collapsible.active .tool-text-preview{opacity:0;max-height:0;overflow:hidden;padding:0;margin:0}
+.tool-text-close{position:absolute;top:12px;right:12px;border:none;background:rgba(255,255,255,0.08);color:var(--w);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;line-height:1}
 
 /* online check phone — improved */
 .online-phone-mock{background:#f4f4f4;border-radius:23px;overflow:hidden;aspect-ratio:9/19;display:flex;flex-direction:column;font-family:"Mulish",sans-serif}
@@ -553,36 +567,61 @@ footer{border-top:1px solid var(--border);padding:42px 5% 26px}
         <div class="tool-phone-carousel">
           <div class="carousel-wrap">
             <div class="carousel-inner" id="carousel-1">
-              <div class="carousel-slide active">
+              <div class="carousel-slide active" data-carousel-detail="1">
                 <div class="ss-shell"><div class="ss-screen">
                   <div style="padding:24px; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; color:var(--w); text-align:center;">
                     <div style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Более 150 моделей — разные возраста и сегменты</div>
                     <div style="font-size:0.82rem; color:rgba(255,255,255,0.72); line-height:1.5; max-width:220px;">
-                      Результаты проверки по реальному техническому состоянию, слабым местам и типовым поломкам.
+                      Обзор реальных слабых мест по моделям, модификациям и пробегам.
                     </div>
                   </div>
                 </div></div>
-              </div><div class="carousel-slide">
+              </div>
+              <div class="carousel-slide" data-carousel-detail="2">
                 <div class="ss-shell"><div class="ss-screen">
                   <div style="padding:24px; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; color:var(--w); text-align:center;">
-                    <div style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Цифровой отчёт</div>
+                    <div style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Экспертная база, не слухи</div>
                     <div style="font-size:0.82rem; color:rgba(255,255,255,0.72); line-height:1.5; max-width:220px;">
-                      Показатель готовности к покупке и важные аргументы для торга.
+                      Не форумные слухи, а прикладная экспертная база: что ломается на конкретной модификации, при каком пробеге и как это проявляется.
+                    </div>
+                  </div>
+                </div></div>
+              </div>
+              <div class="carousel-slide" data-carousel-detail="3">
+                <div class="ss-shell"><div class="ss-screen">
+                  <div style="padding:24px; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; color:var(--w); text-align:center;">
+                    <div style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Проверено механиками</div>
+                    <div style="font-size:0.82rem; color:rgba(255,255,255,0.72); line-height:1.5; max-width:220px;">
+                      Написано профессиональными автоподборщиками и механиками простым языком.
                     </div>
                   </div>
                 </div></div>
               </div>
             </div>
+            <div class="carousel-dots" data-carousel-dots="carousel-1">
+              <button type="button" class="carousel-dot active" data-carousel="carousel-1" data-idx="0" aria-label="Слайд 1"></button>
+              <button type="button" class="carousel-dot" data-carousel="carousel-1" data-idx="1" aria-label="Слайд 2"></button>
+              <button type="button" class="carousel-dot" data-carousel="carousel-1" data-idx="2" aria-label="Слайд 3"></button>
+            </div>
+            <div class="carousel-hint">Нажмите на карточку, чтобы раскрыть подробный обзор слабых мест.</div>
           </div>
         </div>
-        <div class="tool-text rv">
-          <h3>Слабые места моделей</h3>
-          <p>Реальная экспертная база по поломкам и слабым местам, а не форумные слухи. Разбираемся, что стоит проверить у конкретных модификаций и как это проявляется на авто с разным пробегом.</p>
-          <ul class="tool-list">
-            <li>Реальные проблемы кузова и подвески</li>
-            <li>Контроль истории машины</li>
-            <li>Риски перекупов, ДТП и юридических ограничений</li>
-          </ul>
+        <div class="tool-text tool-text--collapsible" id="tool-detail-1">
+          <div class="tool-text-preview">
+            <div>Нажмите на любую карточку выше, чтобы открыть подробный обзор слабых мест.</div>
+            <button type="button" class="tool-text-open">Открыть подробности</button>
+          </div>
+          <div class="tool-text-full">
+            <button type="button" class="tool-text-close" aria-label="Закрыть подробности">✕</button>
+            <h3>Слабые места моделей</h3>
+            <p>Не форумные слухи, а прикладная экспертная база: что ломается на конкретной модификации, при каком пробеге и как это проявляется. Написано профессиональными автоподборщиками и механиками простым языком.</p>
+            <ul class="tool-list">
+              <li>150+ моделей с разными годами, пробегами и сегментами</li>
+              <li>Проблемы, типичные для конкретных модификаций</li>
+              <li>Что ломается при каком пробеге и как это проявляется</li>
+              <li>Понятные выводы для проверки и торга</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -840,18 +879,69 @@ function initCarousel(id){
   const slides=inner.querySelectorAll(".carousel-slide");
   if(slides.length<2) return;
   let cur=0;
-  const dots=document.querySelectorAll("[data-carousel='"+id+"']");
+  const wrapper=inner.closest(".carousel-wrap");
+  let dotsRow=wrapper.querySelector(`.carousel-dots[data-carousel-dots='${id}']`);
+  if(!dotsRow){
+    dotsRow=document.createElement("div");
+    dotsRow.className="carousel-dots";
+    dotsRow.dataset.carouselDots=id;
+    slides.forEach((_,i)=>{
+      const dot=document.createElement("button");
+      dot.type="button";
+      dot.className=i===0?"carousel-dot active":"carousel-dot";
+      dot.dataset.carousel=id;
+      dot.dataset.idx=i;
+      dot.setAttribute("aria-label",`Слайд ${i+1}`);
+      dotsRow.append(dot);
+    });
+    wrapper.append(dotsRow);
+  }
+  const dots=dotsRow.querySelectorAll(".carousel-dot");
   function goTo(idx){
     slides[cur].classList.remove("active");
     cur=idx;
     slides[cur].classList.add("active");
     dots.forEach((d,i)=>d.classList.toggle("active",i===cur));
+    if(id==="carousel-1"){
+      const detail=document.getElementById("tool-detail-1");
+      detail?.classList.add("active");
+    }
   }
-  dots.forEach(dot=>dot.addEventListener("click",()=>goTo(parseInt(dot.dataset.idx))));
-  setInterval(()=>goTo((cur+1)%slides.length),3200);
+  function createArrow(dir){
+    const btn=document.createElement("button");
+    btn.type="button";
+    btn.className=`carousel-arrow ${dir}`;
+    btn.textContent=dir==="prev"?"‹":"›";
+    btn.addEventListener("click",()=>goTo((cur + (dir==="prev"?slides.length-1:1))%slides.length));
+    wrapper.append(btn);
+  }
+  if(!wrapper.querySelector(".carousel-arrow.prev")){
+    createArrow("prev");
+    createArrow("next");
+  }
+  dots.forEach(dot=>dot.addEventListener("click",()=>goTo(parseInt(dot.dataset.idx,10))));
+  slides.forEach(slide=>{
+    slide.addEventListener("click",()=>{
+      if(id==="carousel-1"){
+        const detail=document.getElementById("tool-detail-1");
+        detail?.classList.add("active");
+      }
+    });
+  });
 }
 initCarousel("carousel-1");
 initCarousel("carousel-2");
+document.querySelectorAll(".tool-text-open").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    btn.closest(".tool-text--collapsible")?.classList.add("active");
+  });
+});
+document.querySelectorAll(".tool-text-close").forEach(btn=>{
+  btn.addEventListener("click",event=>{
+    event.stopPropagation();
+    btn.closest(".tool-text--collapsible")?.classList.remove("active");
+  });
+});
 </script>
 </body>
 </html>

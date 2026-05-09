@@ -162,14 +162,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .carousel-arrow.prev{left:-20px}
 .carousel-arrow.next{right:-20px}
 .carousel-hint{margin-top:14px;text-align:center;font-size:0.74rem;color:rgba(255,255,255,0.65)}
-.tool-text--collapsible{position:relative;background:var(--d3);border:1px solid var(--border);border-radius:24px;padding:22px;transition:background .2s;overflow:hidden}
-.tool-text-preview{display:flex;flex-direction:column;gap:14px;font-size:0.85rem;color:var(--muted);line-height:1.7}
+.tool-text-preview-block{background:var(--d3);border:1px solid var(--border);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:14px;max-width:520px;margin:0 auto}
+.tool-text-preview-block .tool-eyebrow{font-size:0.75rem;font-weight:700;color:var(--g);letter-spacing:.1em;text-transform:uppercase}
+.tool-text-preview-block h3{font-size:1.2rem;margin:0;line-height:1.2}
+..tool-text-preview-block p{font-size:0.95rem;color:rgba(255,255,255,0.8);line-height:1.6}
 .tool-text-open{align-self:flex-start;padding:10px 16px;border:none;border-radius:999px;background:var(--g);color:#0b1510;font-weight:700;cursor:pointer;transition:background .2s}
 .tool-text-open:hover{background:#31d05c}
-.tool-text-full{max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .4s ease,padding .4s ease}
-.tool-text--collapsible.active .tool-text-full{max-height:900px;opacity:1;padding-top:18px}
-.tool-text--collapsible.active .tool-text-preview{opacity:0;max-height:0;overflow:hidden;padding:0;margin:0}
-.tool-text-close{position:absolute;top:12px;right:12px;border:none;background:rgba(255,255,255,0.08);color:var(--w);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;line-height:1}
+.tool-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;align-items:center;justify-content:center;z-index:1000;padding:20px}
+.tool-modal.open{display:flex}
+body.modal-open{overflow:hidden}
+.tool-modal-backdrop{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55)}
+.tool-modal-card{position:relative;background:var(--dark);border:1px solid rgba(255,255,255,0.08);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,0.35);width:min(560px,100%);max-height:calc(100% - 60px);overflow:auto;padding:28px;z-index:1}
+.tool-modal-card .tool-eyebrow{font-size:0.75rem;font-weight:700;color:var(--g);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.tool-modal-card h3{font-size:1.45rem;margin:0 0 16px;line-height:1.15}
+.tool-modal-card p{font-size:0.95rem;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:18px}
+.tool-modal-card .tool-list{gap:12px}
+.tool-modal-card .tool-list li{font-size:0.95rem;color:rgba(255,255,255,0.82)}
+.tool-modal-card .tool-text-close{position:absolute;top:16px;right:16px;width:38px;height:38px;border:none;border-radius:50%;background:rgba(255,255,255,0.06);color:var(--w);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.tool-modal-card .tool-text-close:hover{background:rgba(255,255,255,0.12)}
 
 /* online check phone — improved */
 .online-phone-mock{background:#f4f4f4;border-radius:23px;overflow:hidden;aspect-ratio:9/19;display:flex;flex-direction:column;font-family:"Mulish",sans-serif}
@@ -603,25 +613,30 @@ footer{border-top:1px solid var(--border);padding:42px 5% 26px}
               <button type="button" class="carousel-dot" data-carousel="carousel-1" data-idx="1" aria-label="Слайд 2"></button>
               <button type="button" class="carousel-dot" data-carousel="carousel-1" data-idx="2" aria-label="Слайд 3"></button>
             </div>
-            <div class="carousel-hint">Нажмите на карточку, чтобы раскрыть подробный обзор слабых мест.</div>
+            <div class="carousel-hint">Кратко о слабых местах. Нажмите, чтобы узнать больше.</div>
           </div>
         </div>
-        <div class="tool-text tool-text--collapsible" id="tool-detail-1">
-          <div class="tool-text-preview">
-            <div>Нажмите на любую карточку выше, чтобы открыть подробный обзор слабых мест.</div>
-            <button type="button" class="tool-text-open">Открыть подробности</button>
-          </div>
-          <div class="tool-text-full">
-            <button type="button" class="tool-text-close" aria-label="Закрыть подробности">✕</button>
-            <h3>Слабые места моделей</h3>
-            <p>Не форумные слухи, а прикладная экспертная база: что ломается на конкретной модификации, при каком пробеге и как это проявляется. Написано профессиональными автоподборщиками и механиками простым языком.</p>
-            <ul class="tool-list">
-              <li>150+ моделей с разными годами, пробегами и сегментами</li>
-              <li>Проблемы, типичные для конкретных модификаций</li>
-              <li>Что ломается при каком пробеге и как это проявляется</li>
-              <li>Понятные выводы для проверки и торга</li>
-            </ul>
-          </div>
+        <div class="tool-text tool-text-preview-block" id="tool-detail-1">
+          <div class="tool-eyebrow">Слабые места моделей</div>
+          <h3>Реальная база, без лишних слов</h3>
+          <p>150+ моделей, реальные модификации, типичные поломки и проявления — только самое важное.</p>
+          <button type="button" class="tool-text-open">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tool-modal" id="tool-modal-1" aria-hidden="true">
+        <div class="tool-modal-backdrop"></div>
+        <div class="tool-modal-card">
+          <button type="button" class="tool-text-close" aria-label="Закрыть детальную информацию">✕</button>
+          <div class="tool-eyebrow">Слабые места моделей</div>
+          <h3>Полный обзор при желании</h3>
+          <p>Не форумные слухи, а прикладная экспертная база: что ломается на конкретной модификации, при каком пробеге и как это проявляется. Написано профессиональными автоподборщиками и механиками простым языком.</p>
+          <ul class="tool-list">
+            <li>150+ моделей с разными годами, пробегами и сегментами</li>
+            <li>Проблемы, типичные для конкретных модификаций</li>
+            <li>Что ломается при каком пробеге и как это проявляется</li>
+            <li>Понятные выводы для проверки и торга</li>
+          </ul>
         </div>
       </div>
 
@@ -902,10 +917,6 @@ function initCarousel(id){
     cur=idx;
     slides[cur].classList.add("active");
     dots.forEach((d,i)=>d.classList.toggle("active",i===cur));
-    if(id==="carousel-1"){
-      const detail=document.getElementById("tool-detail-1");
-      detail?.classList.add("active");
-    }
   }
   function createArrow(dir){
     const btn=document.createElement("button");
@@ -923,24 +934,38 @@ function initCarousel(id){
   slides.forEach(slide=>{
     slide.addEventListener("click",()=>{
       if(id==="carousel-1"){
-        const detail=document.getElementById("tool-detail-1");
-        detail?.classList.add("active");
+        openToolModal("tool-modal-1");
       }
     });
   });
 }
 initCarousel("carousel-1");
 initCarousel("carousel-2");
+function openToolModal(id){
+  const modal=document.getElementById(id);
+  modal?.classList.add("open");
+  modal?.setAttribute("aria-hidden","false");
+  document.body.classList.add("modal-open");
+}
+function closeToolModal(id){
+  const modal=document.getElementById(id);
+  modal?.classList.remove("open");
+  modal?.setAttribute("aria-hidden","true");
+  document.body.classList.remove("modal-open");
+}
 document.querySelectorAll(".tool-text-open").forEach(btn=>{
   btn.addEventListener("click",()=>{
-    btn.closest(".tool-text--collapsible")?.classList.add("active");
+    openToolModal("tool-modal-1");
   });
 });
 document.querySelectorAll(".tool-text-close").forEach(btn=>{
   btn.addEventListener("click",event=>{
     event.stopPropagation();
-    btn.closest(".tool-text--collapsible")?.classList.remove("active");
+    closeToolModal("tool-modal-1");
   });
+});
+document.querySelectorAll(".tool-modal-backdrop").forEach(backdrop=>{
+  backdrop.addEventListener("click",()=>closeToolModal("tool-modal-1"));
 });
 </script>
 </body>
